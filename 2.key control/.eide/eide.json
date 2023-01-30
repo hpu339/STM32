@@ -16,6 +16,9 @@
             "path": "Driver/src/Delay.c"
           },
           {
+            "path": "Driver/src/Key.c"
+          },
+          {
             "path": "Driver/src/LED.c"
           }
         ],

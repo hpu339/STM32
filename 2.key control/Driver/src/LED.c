@@ -23,3 +23,23 @@ void LED_TurnOff()
 {
     GPIO_ResetBits(GPIOA,LED);
 }
+
+/**
+ * @Author: Yang Lixin
+ * @description: 高低电平反转
+ * @return {*}
+ */
+void LED_Reversal()
+{
+    uint16_t state = 0;
+    state = GPIO_ReadOutputDataBit(GPIOA,LED);
+    if(state == 0)
+    {
+         GPIO_SetBits(GPIOA,LED);
+    }
+    else
+    {
+        GPIO_ResetBits(GPIOA,LED);
+    }
+   
+}
