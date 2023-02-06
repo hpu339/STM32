@@ -1,51 +1,51 @@
 /*
  * @Author: Yang Lixin
- * @Date: 2023-02-06 11:16:27
+ * @Date: 2023-02-06 22:55:23
  * @LastEditors: [you name]
- * @LastEditTime: 2023-02-06 19:05:51
+ * @LastEditTime: 2023-02-06 23:37:36
  * @Description: 
  */
+
 #include "stm32f10x.h"
 
 
-void EXTI_TIM2Init()
+void PWM_TIM2Init()
 {
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA,&GPIO_InitStructure);
 
-    //选择ETR通过外部时钟模式1输入的时钟
-    TIM_ETRClockMode1Config(TIM2,TIM_ExtTRGPSC_OFF,TIM_ExtTRGPolarity_NonInverted,0x0f);
     
     TIM_TimeBaseInitTypeDef TIM_InitStructure;
     TIM_InitStructure.TIM_ClockDivision = TIM_CKD_DIV1; //不分频 72
     TIM_InitStructure.TIM_CounterMode = TIM_CounterMode_Up; //计数模式
-    TIM_InitStructure.TIM_Period = 10-1;   //100hZ
-    TIM_InitStructure.TIM_Prescaler = 1-1;
+    TIM_InitStructure.TIM_Period = 100-1;   //1khz
+    TIM_InitStructure.TIM_Prescaler = 720-1;
     TIM_InitStructure.TIM_RepetitionCounter = 0;
     TIM_TimeBaseInit(TIM2,&TIM_InitStructure);
 
-    TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE);
+    //TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE);
+    TIM_InternalClockConfig(TIM2);//内部时钟中断配置
 
-    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-    NVIC_InitTypeDef NVIC_InitStructure;
-    NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-    NVIC_Init(&NVIC_InitStructure);
+    TIM_OCInitTypeDef TIM_OCInitStructure;
+    TIM_OCStructInit(&TIM_OCInitStructure);
+    TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+    TIM_OCInitStructure.TIM_Pulse = 0; //CCR
+    TIM_OC1Init(TIM2,&TIM_OCInitStructure);
 
     TIM_Cmd(TIM2,ENABLE);
 
 }
-uint16_t EXTI_CountGet()
+void PWM_Set(uint16_t ccr)
 {
-    return TIM_GetCounter(TIM2);
+    TIM_SetCompare1(TIM2,ccr);
 }
 
 // void TIM2_IRQHandler()
