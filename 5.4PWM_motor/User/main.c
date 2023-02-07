@@ -1,23 +1,27 @@
 /*
  * @Author: Yang Lixin
- * @Date: 2023-02-06 19:06:39
+ * @Date: 2023-02-07 09:51:38
  * @LastEditors: [you name]
- * @LastEditTime: 2023-02-07 09:53:08
+ * @LastEditTime: 2023-02-07 11:37:10
  * @Description: 
  */
 
 #include "stm32f10x.h"                  // Device header
-#include "PWM.h"
+#include "Motor.h"
 #include "OLED.h"
 #include "Delay.h"
 
 int main(void)
 {
 	OLED_Init();
-	PWM_TIM2Init();
-
+	Motor_Init();
 	while (1)
 	{
-		PWM_Set(30);
+		Motor_Left();
+		Delay_ms(5000);
+		Motor_Right();
+		Delay_ms(5000);
+		Motor_Break();
+		Delay_ms(5000);
 	}
 }
