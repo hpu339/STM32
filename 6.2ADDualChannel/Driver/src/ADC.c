@@ -2,8 +2,8 @@
  * @Author: Yang Lixin
  * @Date: 2023-02-09 00:22:27
  * @LastEditors: [you name]
- * @LastEditTime: 2023-02-09 11:48:13
- * @Description: 
+ * @LastEditTime: 2023-02-09 11:51:19
+ * @Description: ADC多通道
  */
 #include "stm32f10x.h"
 
@@ -19,8 +19,8 @@ void AD_Init()
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA,&GPIO_InitStructure);
 
-    ADC_RegularChannelConfig(ADC1,ADC_Channel_0,1,ADC_SampleTime_55Cycles5);
-
+    //单通道
+    //ADC_RegularChannelConfig(ADC1,ADC_Channel_0,1,ADC_SampleTime_55Cycles5);
     ADC_InitTypeDef ADC_InitStructure;
     ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;//单通道
     ADC_InitStructure.ADC_NbrOfChannel = 1;//通道数目个数
@@ -39,8 +39,9 @@ void AD_Init()
 
 }
 
-uint16_t AD_GetValue()
+uint16_t AD_GetValue(uint8_t ADC_Channel)
 {
+    ADC_RegularChannelConfig(ADC1,ADC_Channel,1,ADC_SampleTime_55Cycles5);
     ADC_SoftwareStartConvCmd(ADC1,ENABLE);//启动转换
     while(ADC_GetFlagStatus(ADC1,ADC_FLAG_EOC) == RESET);//检测EOC标志位是被清01
     return ADC_GetConversionValue(ADC1);
