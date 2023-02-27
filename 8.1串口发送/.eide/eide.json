@@ -3,7 +3,8 @@
   "type": "ARM",
   "dependenceList": [],
   "srcDirs": [
-    ".eide/deps"
+    ".eide/deps",
+    "USART"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",
@@ -11,27 +12,18 @@
     "folders": [
       {
         "name": "Driver",
-        "files": [],
-        "folders": [
+        "files": [
           {
-            "name": "inc",
-            "files": [
-              {
-                "path": "Driver/inc/LED.h"
-              }
-            ],
-            "folders": []
+            "path": "Driver/src/Delay.c"
           },
           {
-            "name": "src",
-            "files": [
-              {
-                "path": "Driver/src/LED.c"
-              }
-            ],
-            "folders": []
+            "path": "Driver/src/Key.c"
+          },
+          {
+            "path": "Driver/src/LED.c"
           }
-        ]
+        ],
+        "folders": []
       },
       {
         "name": "Library",
@@ -371,7 +363,7 @@
           "User",
           "Library",
           "Driver/inc",
-          ".eide/deps"
+          "USART"
         ],
         "libList": [],
         "sourceDirList": [],
