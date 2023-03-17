@@ -334,7 +334,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\User;.\Library;.\Driver\inc;.\USART</IncludePath>
+              <IncludePath>.\Start;.\User;.\Library;.\Driver\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -686,16 +686,6 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>New Group</GroupName>
-          <Files>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\USART\Serial.c</FilePath>
             </File>
           </Files>
         </Group>
