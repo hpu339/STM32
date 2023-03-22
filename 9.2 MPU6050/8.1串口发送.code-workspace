@@ -1,0 +1,15 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "serial.h": "c",
+            "delay.h": "c",
+            "stdarg.h": "c"
+        }
+    },
+    "extensions": {}
+}

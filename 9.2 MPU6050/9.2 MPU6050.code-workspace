@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "oled_font.h": "c"
+        }
+    },
+    "extensions": {}
+}
